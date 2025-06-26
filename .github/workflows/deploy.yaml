@@ -10,10 +10,10 @@ permissions:
   contents: read
 
 env:
-  PROJECT_ID: new-project-460404
-  SERVICE_ACCOUNT_EMAIL: github-actions@new-project-460404.iam.gserviceaccount.com
+  PROJECT_ID: ultra-dominion-464010-e0 
+  SERVICE_ACCOUNT_EMAIL: github-actions@ultra-dominion-464010-e0.iam.gserviceaccount.com
   REGION: us-central1
-  REPO: hello-repo3
+  REPO: hello-github
 
 jobs:
   deploy:
