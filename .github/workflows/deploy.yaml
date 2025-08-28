@@ -49,4 +49,4 @@ jobs:
          install_components: 'gke-gcloud-auth-plugin'
       - name: Build Docker image         
         run: |      
-          docker build -t us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest .
+         docker build -t us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest .
