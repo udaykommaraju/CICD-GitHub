@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Hello from Cloud Run!!!! test"
+    return "Hello from Cloud Run!!!! testing"
 
 if __name__ == "__main__":
     app.run()
