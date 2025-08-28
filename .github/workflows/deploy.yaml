@@ -43,3 +43,10 @@ jobs:
             --platform managed \
             --region $REGION \
             --allow-unauthenticated
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+        with:
+         install_components: 'gke-gcloud-auth-plugin'
+      - name: Build Docker image         
+        run: |      
+          docker build -t us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest .
