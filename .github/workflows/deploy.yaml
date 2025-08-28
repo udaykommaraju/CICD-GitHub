@@ -47,7 +47,34 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
         with:
          install_components: 'gke-gcloud-auth-plugin'
-      - name: Build Docker image         
-        run: | 
-         docker build -t us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest 
-     
+       # Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest .
+
+      # Authenticate Docker to push to Artifact Registry
+      - name: Authenticate Docker to Artifact Registry
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      # Push Docker image to Artifact Registry
+      - name: Push Docker image
+        run: |
+          docker push us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest
+
+      # Deploy to Google Kubernetes Engine
+      - name: Deploy to GKE
+        run: |
+          # Authenticate kubectl with the GKE cluster
+          gcloud container clusters get-credentials my-gke1 --region us-central1
+
+          # If deployment doesn't exist, create it
+          if ! kubectl get deployment hello-app >/dev/null 2>&1; then
+            kubectl apply -f deployment.yaml
+          fi
+
+          # Update deployment with new image
+          kubectl set image deployment/hello-app hello-app=us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest
+
+          # Wait for the rollout to finish
+          kubectl rollout status deployment/hello-app
