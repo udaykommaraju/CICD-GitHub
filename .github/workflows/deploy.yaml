@@ -66,7 +66,7 @@ jobs:
       - name: Deploy to GKE
         run: |
           # Authenticate kubectl with the GKE cluster
-          gcloud container clusters get-credentials my-gke1 --region us-central1
+          gcloud container clusters get-credentials autopilot-cluster-1  --region us-central1
 
           # If deployment doesn't exist, create it
           if ! kubectl get deployment hello-app >/dev/null 2>&1; then
@@ -76,5 +76,4 @@ jobs:
           # Update deployment with new image
           kubectl set image deployment/hello-app hello-app=us-central1-docker.pkg.dev/ultra-dominion-464010-e0/kube-repo/hello-app:latest
 
-          # Wait for the rollout to finish
-          kubectl rollout status deployment/hello-app
+          
